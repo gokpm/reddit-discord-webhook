@@ -1,56 +1,87 @@
-title = '''
-Title              : Reddit to Discord
-Date Created       : 01-09-2021
-Date Last Modified : 04-09-2021
-Modification       : GitHub Ready
-Created by         : Gokul PM a.k.a icemelting
+'''
+Version:            0.2
+Date last modified: 07-09-2021
+Modified by:        icemelting
+Contributed by:     icemelting
 '''
 
-print(title)
-
-import praw
+import praw, time
 from discord_webhook import DiscordWebhook, DiscordEmbed
-import time
 
-wait_time = 1.618
-cache_filepath = <CACHE_FILE_PATH>
-subreddit_list = [<SUBREDDIT_NAMES>]
-webhook_url = [<RESPECTIVE_WEBHOOK_URL>]
-switcher = {}
-for i in range(len(webhook_url)):
-    switcher.update({subreddit_list[i]: webhook_url[i]})
+sleep_time = 1.618
+cache_fp = <CACHE_FILEPATH>
 
-cache = open(cache_filepath, 'a+')
-cache.close()
-cache = open(cache_filepath, 'r')
-already_seen = cache.read().split()
-cache.close()
+webhookDictionary = {
+'opencv': <WEBHOOK_URL>,
+'jokes': <WEBHOOK_URL>,
+'dankmemes': <WEBHOOK_URL>,
+'python': <WEBHOOK_URL>,
+'fountainpens': <WEBHOOK_URL>}
 
 reddit = praw.Reddit(
-    client_id=<CLIENT_ID>,
-    client_secret=<CLIENT_SECRET>,
-    user_agent=<BOT_NAME>)
+client_id=<CLIENT_ID>,
+client_secret=<CLIENT_SECRET>,
+user_agent=<BOT_NAME>)
 reddit.read_only = True
 
-def to_discord(subreddit_name: str, post_limit: int):
-    webhook_url = switcher.get(subreddit_name, "nothing")
-    sub = reddit.subreddit(subreddit_name)
-    latest = sub.hot(limit = post_limit)
-    for post in latest:
-        if not post.id in already_seen:
-            time.sleep(wait_time)
-            cache = open(cache_filepath, 'a+')
-            cache.write(post.id+'\n')
-            cache.close()
-            already_seen.append(post.id)
-            webhook = DiscordWebhook(url=webhook_url)
-            embed = DiscordEmbed(title=post.title, description=post.selftext, color = '9966cc', url = post.url)
-            if not post.is_self:
-                embed.set_image(url=post.url)
-            webhook.add_embed(embed)
-            webhook.execute()
-    time.sleep(wait_time*5)
-
-while True:
-    for r in subreddit_list:
-        to_discord(r, 50)
+def cache(cacheMode):
+    if cacheMode == 'r':
+        global archive
+        cache = open(cache_fp, 'a+')
+        cache.close()
+        cache = open(cache_fp, 'r')
+        archive = cache.read().split()
+        cache.close()
+    elif cacheMode == 'a+':
+        cache = open(cache_fp, 'a+')
+        cache.write(post.id+'\n')
+        cache.close()
+        archive.append(post.id)
+    return archive
+    
+def notify(subReddit, sortBy, postLimit):
+    webhookUrl = webhookDictionary[subReddit]
+    sub = reddit.subreddit(subReddit)
+    if sortBy.lower() == 'new':
+        new = list(sub.new(limit = postLimit))
+        new.reverse()
+        send(new, webhookUrl)
+    elif sortBy.lower() == 'hot':
+        hot = sub.hot(limit = postLimit)
+        send(hot, webhookUrl)
+        
+def send(postList, webhookUrl):
+    global post
+    for post in postList:
+        if not post.id in archive:
+            cache('a+')
+            execWebhook(webhookUrl)
+    return archive
+            
+def execWebhook(webhookUrl):
+    webhook = DiscordWebhook(url=webhookUrl)
+    embed = DiscordEmbed(title=post.title, description=post.selftext, color = '9966cc', url = post.url)
+    if not post.is_self:
+        embed.set_image(url=post.url)
+    webhook.add_embed(embed)
+    webhook.execute()
+    time.sleep(sleep_time*3)
+   
+def main():
+    i = 0
+    cache('r')
+    while True:
+        time_start = time.perf_counter()
+        notify('opencv', 'new', 100)
+        notify('jokes', 'hot', 100)
+        notify('dankmemes', 'hot', 100)
+        notify('python', 'new', 100)
+        notify('fountainpens', 'new', 100)
+        i += 1
+        time_end = time.perf_counter()
+        time_min = int((time_end - time_start)/60)
+        time_sec = int((time_end - time_start)%60)
+        print(f'Cycle {i} Ping: {time_min}m {time_sec}s')
+          
+if __name__ == '__main__':
+    main()
