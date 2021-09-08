@@ -78,9 +78,8 @@ async def main():
         await notify('fountainpens', 'new', 50)
         i += 1
         time_end = time.perf_counter()
-        time_min = int((time_end - time_start)/60)
-        time_sec = int((time_end - time_start)%60)
-        print(f'Cycle {i} Ping: {time_min}m {time_sec}s')
+        time_taken = time_end - time_start
+        print('Cycle {0}: {1:.2f}s'.format(i, time_taken))
     return
           
 if __name__ == '__main__':
