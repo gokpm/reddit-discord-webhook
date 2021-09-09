@@ -14,7 +14,7 @@ A python script to get submissions from a subreddit and post them in a discord c
 
 1. Python 3.9
 2. Client ID & Client Secret to access Reddit's API
-3. Discord Webhook URL
+3. Discord webhook URL
 4. Install the required modules from the requirements.txt file
 	
 
