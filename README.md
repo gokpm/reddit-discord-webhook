@@ -1,26 +1,32 @@
 # reddit-discord-webhook
 
 ### 1. Description:
+A python script to get submissions from a subreddit and post them in a discord channel by using Reddit's API and Discord's webhook
 
-A python script to retrieve submissions from a subreddit and post it into a discord channel by means of a webhook
 
-### 2. Pre-Requisites:
+### 2. Features:
+1. Asynchronous PRAW
+2. Asyncio
+3. Any number of subreddits and webhooks
+	
+	
+### 3. Pre-Requisites:
 
-	1. Python 3.9
-	2. Client ID & Client Secret to access Reddit's API
-	3. Discord Webhook URL
-	4. Install the required modules from requirements.txt
+1. Python 3.9
+2. Client ID & Client Secret to access Reddit's API
+3. Discord Webhook URL
+4. Install the required modules from the requirements.txt file
 	
 
-### 3. Setup:
+### 4. Setup:
 
-	1. Replace the following tags in r2d.py
-	
-		<CLIENT_ID> -> Replace this with the client ID
-		<CLIENT_SECRET> -> Replace this with the client Secret
-		<BOT_NAME> -> Replace this with the name of the bot
-		<WEBHOOK_URL> -> Replace this with the Webhook URL
-	
-	2. Run r2d.py
+1. Replace the following tags in r2d.py
+
+	> <CLIENT_ID> -> with the client ID <br>
+	> <CLIENT_SECRET> -> with the client Secret <br>
+	> <BOT_NAME> -> with the name of the bot <br>
+	> <WEBHOOK_URL> -> with the webhook URL <br>
+
+2. Run r2d.py
 
 
