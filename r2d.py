@@ -1,28 +1,35 @@
 '''
-Version:            0.4
+Version:            0.5
 Date last modified: 08-09-2021
-Modified by:        icemelting
-Contributed by:     icemelting
+Modified by:        @icemelting
+Contributed by:     @icemelting
 '''
 
 import asyncpraw, time
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import asyncio
+import json
 
 async def cache(cacheMode):
-    cache_fp = <CACHE_FILEPATH>
+    cache_fp = r'archive.json'
     global archive
     if cacheMode == 'r':
-        cache = open(cache_fp, 'a+')
-        cache.close()
-        cache = open(cache_fp, 'r')
-        archive = cache.read().split()
-        cache.close()
-    elif cacheMode == 'a+':
-        cache = open(cache_fp, 'a+')
-        cache.write(post.id+'\n')
-        cache.close()
+        try:
+            with open(cache_fp, 'r') as archive_file:
+                archive = json.load(archive_file)
+                archive_file.close()
+        except:
+            with open(cache_fp, 'w') as archive_file:
+                json.dump([], archive_file, indent = 4)
+                archive_file.close()    
+            with open(cache_fp, 'r') as archive_file:
+                archive = json.load(archive_file)
+                archive_file.close()
+    elif cacheMode == 'r+':
         archive.append(post.id)
+        with open(cache_fp, 'r+') as archive_file:
+                json.dump(archive, archive_file, indent = 4)
+                archive_file.close()
     return
            
 async def execWebhook(webhookUrl):
@@ -32,13 +39,13 @@ async def execWebhook(webhookUrl):
         embed.set_image(url=post.url)
     webhook.add_embed(embed)
     webhook.execute()
-    await asyncio.sleep(sleep_time)
+    await asyncio.sleep(sleep_time*3)
 
 async def send(postList, webhookUrl):
     global post
     async for post in postList:
         if not post.id in archive:
-            await cache('a+')
+            await cache('r+')
             await execWebhook(webhookUrl)
     return    
 
