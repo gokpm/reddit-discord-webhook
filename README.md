@@ -2,7 +2,7 @@
 
 1. Description:
 
-A python script to retrieve submissions from a subreddit and post it into a discord channel by using a webhook
+	A python script to retrieve submissions from a subreddit and post it into a discord channel by using a webhook
 
 2. Pre-Requisites:
 
