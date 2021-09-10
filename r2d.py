@@ -1,7 +1,6 @@
 '''
 Version:            0.5
 Date last modified: 10-09-2021
-Modified by:        @icemelting
 Contributed by:     @icemelting
 '''
 
@@ -17,19 +16,15 @@ async def cache(cacheMode):
         try:
             with open(cache_fp, 'r') as archive_file:
                 archive = json.load(archive_file)
-                archive_file.close()
         except:
             with open(cache_fp, 'w') as archive_file:
-                json.dump([], archive_file, indent = 4)
-                archive_file.close()    
+                json.dump([], archive_file, indent = 4)   
             with open(cache_fp, 'r') as archive_file:
                 archive = json.load(archive_file)
-                archive_file.close()
     elif cacheMode == 'r+':
         archive.append(post.id)
         with open(cache_fp, 'r+') as archive_file:
                 json.dump(archive, archive_file, indent = 4)
-                archive_file.close()
     return
            
 async def execWebhook(webhookUrl):
