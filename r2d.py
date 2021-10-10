@@ -40,11 +40,11 @@ async def send(postList, webhookUrl):
 
 async def notify(subReddit, sortBy, postLimit):
     webhookDictionary = {
-    'opencv': 'https://discord.com/api/webhooks/882907666878443520/YIH44rQ4yMwhbSf4ldl-PcxFtz5PaY8lD5AwxNQSdWJps27nolCNT2na-OJGSQmxuotV',
-    'jokes': 'https://discord.com/api/webhooks/882607686020128778/g0EXiFwJBYi4v64sWTEZwqhKvX_WHlqHPOVjjKTaD68R3MGroRQeM4UJuj0kgSwYc0q-',
-    'dankmemes': 'https://discord.com/api/webhooks/882891496267841556/IDw-_qKSfUccW6mDHx9eScOvqOpsCmgzkBCJggr7Jpi9wBWC3Pbw-bW4NjCLrnQ157dO',
-    'python': 'https://discord.com/api/webhooks/882898112799186954/3qVCwMOm24ptKvIddnXLFWKJ-5RbeGWwWm-03JkJ8qBPBd0uSYA1Fd-gLMHlkkqvussF',
-    'fountainpens': 'https://discord.com/api/webhooks/882909068325425152/4ut38l1uk0rcvC6v1rKC-xmvIgM58DguCqaFH0-dCLYhDIDn-rOtEX7yGTDfxNqYKFn5'}
+    'opencv': <WEBHOOK_URL>,
+    'jokes': <WEBHOOK_URL>,
+    'dankmemes': <WEBHOOK_URL>,
+    'python': <WEBHOOK_URL>,
+    'fountainpens': <WEBHOOK_URL>}
     webhookUrl = webhookDictionary[subReddit]
     sub = await reddit.subreddit(subReddit)
     if sortBy.lower() == 'new':
@@ -59,9 +59,9 @@ async def main():
     global sleep_time, reddit
     sleep_time = 1.618
     reddit = asyncpraw.Reddit(
-    client_id="WAPIdkK6kNYa16yN2kmyVg",
-    client_secret="lRNxkONlIY4fkvEIoXREFRXPVll3qA",
-    user_agent="Reddit Discord Webhook")
+    client_id=<CLIENT_ID>
+    client_secret=<CLIENT_SECRET>,
+    user_agent=<USER_AGENT>)
     reddit.read_only = True
     i = 0
     await cache('r')
