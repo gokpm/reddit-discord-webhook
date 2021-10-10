@@ -1,9 +1,3 @@
-'''
-Version:            0.5
-Date last modified: 10-09-2021
-Contributed by:     @icemelting
-'''
-
 import asyncpraw, time
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import asyncio
