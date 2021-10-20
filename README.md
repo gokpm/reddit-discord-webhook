@@ -25,7 +25,7 @@ A python script to get submissions from a subreddit and post them in a discord c
 	> <CLIENT_ID><br>
 	> <CLIENT_SECRET><br>
 	> <USER_AGENT><br>
-	> <SUBREDDIT><br>
+	> SUBREDDIT<br>
 	> <WEBHOOK_URL><br>
 
 2. Start run.py
