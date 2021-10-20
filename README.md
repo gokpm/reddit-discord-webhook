@@ -22,11 +22,11 @@ A python script to get submissions from a subreddit and post them in a discord c
 
 1. Replace the following placeholders in '.env.example' file and rename it as '.env'
 
-	> <CLIENT_ID> -> Client ID <br>
-	> <CLIENT_SECRET> -> Client Secret <br>
-	> <USER_AGENT> -> Name of the bot <br>
-	> <SUBREDDIT> -> Name of the subreddit <br>
-	> <WEBHOOK_URL> -> Webhook URL <br>
+	> <CLIENT_ID><br>
+	> <CLIENT_SECRET><br>
+	> <USER_AGENT><br>
+	> <SUBREDDIT><br>
+	> <WEBHOOK_URL><br>
 
 2. Start run.py
 
