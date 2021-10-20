@@ -65,19 +65,20 @@ class Bot:
                     embed.set_image(url=post.url)
                 self.webhook.add_embed(embed)
                 self.webhook.execute()
-                await asyncio.sleep(1.618) 
+                await asyncio.sleep(1) 
         return
         
 async def main():
-    a = Bot('jokes', 100, os.environ['jokes'])
-    b = Bot('dankmemes', 100, os.environ['dankmemes'])
-    c = Bot('python', 100, os.environ['python'])
-    d = Bot('linux', 100, os.environ['linux'])
+    instance = []    
+    instance.append(Bot('jokes', 100, os.environ['jokes']))
+    instance.append(Bot('dankmemes', 100, os.environ['dankmemes']))
+    instance.append(Bot('python', 100, os.environ['python']))
+    instance.append(Bot('linux', 100, os.environ['linux']))
+    tasks = []
+    for i in range(len(instance)):
+        tasks.append(asyncio.create_task(instance[i].run()))  
     while True:
-        await a.run()
-        await b.run()
-        await c.run()
-        await d.run()
+        await asyncio.wait(tasks)
     return
    
 if __name__=='__main__':
