@@ -1,7 +1,55 @@
-import asyncpraw, time
-from discord_webhook import DiscordWebhook, DiscordEmbed
-import asyncio
 import json
+import asyncpraw
+import asyncio
+from discord_webhook import DiscordWebhook, DiscordEmbed
+
+class Database:
+    def __init__(self, path) -> None:
+        self.path = path
+        if os.path.isfile(path):
+            self.read()
+        else:
+            self.write([])
+        return
+        
+    def __call__(self) -> list:
+        return self.data
+    
+    def read(self) -> None:
+        with open(self.path, 'r') as file:
+            self.data = json.load(file)
+        return
+        
+    def write(self, data) -> None:
+        self.data = data
+        with open(self.path, 'w') as file:
+            json.dump(self.data, file, indent = 4)
+        return
+        
+class Bot:
+    def __init__(self, subreddit, post_count):
+        self.subreddit = subreddit
+        self.webhook = webhook
+        self.cache = Database(subreddit+'.json')
+        return
+        
+    async def get_submissions(self):
+        while True:
+            try:
+                self.reddit = asyncpraw.Reddit(client_id=<CLIENT_ID>,
+                                          client_secret=<CLIENT_SECRET>,
+                                          user_agent=<USER_AGENT>)
+                self.reddit.read_only = True
+                break
+            except:
+                pass
+        return
+        
+        
+    
+    
+
+         
 
 async def cache(cacheMode):
     cache_fp = r'archive.json'
@@ -23,7 +71,10 @@ async def cache(cacheMode):
            
 async def execWebhook(webhookUrl):
     webhook = DiscordWebhook(url=webhookUrl)
-    embed = DiscordEmbed(title=post.title, description=post.selftext, color = '9966cc', url = post.url)
+    embed = DiscordEmbed(title=post.title,
+            description=post.selftext,
+            color = '9966cc',
+            url = post.url)
     if not post.is_self:
         embed.set_image(url=post.url)
     webhook.add_embed(embed)
@@ -80,3 +131,4 @@ async def main():
           
 if __name__ == '__main__':
     asyncio.run(main())
+    
