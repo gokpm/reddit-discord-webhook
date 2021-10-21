@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import os
 import json
 import asyncio
@@ -64,7 +62,7 @@ class Bot:
                         self.webhook.execute()
                         self.cache.data.append(post.id)
                         self.cache.write()
-                        await asyncio.sleep(1)
+                        await asyncio.sleep(1.618)
                 break
             except:
                 pass
