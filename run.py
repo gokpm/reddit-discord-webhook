@@ -70,16 +70,14 @@ class Bot:
         
 async def main():
     instance = []    
-    instance.append(Bot('jokes', 10, os.environ['jokes']))
-    instance.append(Bot('dankmemes', 10, os.environ['dankmemes']))
-    instance.append(Bot('python', 10, os.environ['python']))
-    instance.append(Bot('linux', 10, os.environ['linux']))
+    instance.append(Bot('jokes', 100, os.environ['jokes']))
+    instance.append(Bot('dankmemes', 100, os.environ['dankmemes']))
+    instance.append(Bot('python', 100, os.environ['python']))
+    instance.append(Bot('linux', 100, os.environ['linux']))
     tasks = []
     for i in range(len(instance)):
-        tasks.append(asyncio.create_task(instance[i].run()))  
-    while True:
-        await asyncio.wait(tasks)
-        print(1)
+        tasks.append(asyncio.create_task(instance[i].run())) 
+    await asyncio.wait(tasks)
     return
    
 if __name__=='__main__':
