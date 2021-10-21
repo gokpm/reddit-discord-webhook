@@ -63,18 +63,18 @@ class Bot:
                         self.cache.data.append(post.id)
                         self.cache.write()
                         await asyncio.sleep(1)
-                await self.reddit.close()
                 break
             except:
                 pass
+        await self.reddit.close()
         return
         
 async def main():
     instance = []    
-    instance.append(Bot('jokes', 10, os.environ['jokes']))
-    instance.append(Bot('dankmemes', 10, os.environ['dankmemes']))
-    instance.append(Bot('python', 10, os.environ['python']))
-    instance.append(Bot('linux', 10, os.environ['linux']))
+    instance.append(Bot('jokes', 250, os.environ['jokes']))
+    instance.append(Bot('dankmemes', 250, os.environ['dankmemes']))
+    instance.append(Bot('python', 250, os.environ['python']))
+    instance.append(Bot('linux', 250, os.environ['linux']))
     tasks = []
     for i in range(len(instance)):
         tasks.append(asyncio.create_task(instance[i].run())) 
