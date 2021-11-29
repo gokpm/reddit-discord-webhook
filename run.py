@@ -28,10 +28,10 @@ class Database:
         return
         
 class Bot:
-    def __init__(self, subreddit_name, post_count, webhook_url):
+    def __init__(self, subreddit_name):
         self.subreddit = subreddit_name
-        self.count = post_count
-        self.webhook_url = webhook_url
+        self.count = 50
+        self.webhook_url = os.environ[self.subreddit]
         self.cache = Database(self.subreddit+'.json')
         return
         
@@ -71,10 +71,11 @@ class Bot:
         
 async def main():
     instance = []    
-    instance.append(Bot('jokes', 250, os.environ['jokes']))
-    instance.append(Bot('dankmemes', 250, os.environ['dankmemes']))
-    instance.append(Bot('python', 250, os.environ['python']))
-    instance.append(Bot('linux', 250, os.environ['linux']))
+    instance.append(Bot('jokes'))
+    instance.append(Bot('dankmemes'))
+    instance.append(Bot('fedora'))
+    instance.append(Bot('linux_gaming'))
+    instance.append(Bot('golang'))
     tasks = []
     for i in range(len(instance)):
         tasks.append(asyncio.create_task(instance[i].run())) 
