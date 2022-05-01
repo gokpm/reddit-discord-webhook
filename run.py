@@ -73,9 +73,7 @@ async def main():
     instance = []    
     instance.append(Bot('jokes'))
     instance.append(Bot('dankmemes'))
-    instance.append(Bot('fedora'))
-    instance.append(Bot('linux_gaming'))
-    instance.append(Bot('golang'))
+    instance.append(Bot('programmerhumor'))
     tasks = []
     for i in range(len(instance)):
         tasks.append(asyncio.create_task(instance[i].run())) 
